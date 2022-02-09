@@ -39,6 +39,21 @@ module.exports = {
                     inline: true
                 },
                 {
+                    name: 'Total Channels',
+                    value: `\`\`${interaction.guild.channels.cache.size.toString()}\`\``,
+                    inline: true
+                },
+                {
+                    name: 'Partnered ?',
+                    value: `\`\`${interaction.guild.partnered ? 'Yes' : 'No'}\`\``,
+                    inline: true
+                },
+                {
+                    name: 'Verified ?',
+                    value: `\`\`${interaction.guild.verified ? 'Yes' : 'No'}\`\``,
+                    inline: true
+                },
+                {
                     name: 'Joined Server At',
                     value: `\`\`${interaction.guild.joinedAt.toLocaleString()}\`\``,
                     inline: true
@@ -57,7 +72,17 @@ module.exports = {
                     name: 'Server Boost Count',
                     value: `\`\`${interaction.guild.premiumSubscriptionCount}\`\``,
                     inline: true
-                }
+                },
+                {
+                    name: 'Emojis List',
+                    value: `${interaction.guild.emojis.cache.map(emoji => emoji.toString()).join(" ")}`,
+                    inline: false
+                },
+                {
+                    name: 'Server Features',
+                    value: `\`\`${interaction.guild.features.join(",")}\`\``,
+                    inline: true
+                },
             );
             interaction.followUp({
                 embeds: [embed]
