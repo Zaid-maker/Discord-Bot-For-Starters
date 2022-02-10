@@ -68,6 +68,11 @@ module.exports = {
                     inline: true
                 },
                 {
+                    name: 'Presence',
+                    value: `\`\`${member.presence.status}\`\``,
+                    inline: true
+                },
+                {
                     name: 'Roles',
                     value: `\`\`${member.roles.cache.map(x => x.name).join(', ')}\`\``,
                     inline: true

@@ -7,18 +7,12 @@ module.exports = {
     run: (client) => {
         const activities_list = [
             `${client.guilds.cache.size} servers | >help`,
-            `${client.users.cache.size} users | >help`,
             `users using / commands`,
-            `Coming Soon`,
-            'top.gg'
         ];
 
         const type_lists = [
             'WATCHING',
-            'PLAYING',
             'LISTENING',
-            'STREAMING',
-            'COMPETING'
         ];
 
         setInterval(() => {
@@ -29,6 +23,6 @@ module.exports = {
         }, 10000)
 
         console.log(`[ ${client.user?.username} ] : Connected to Discord with ${client.ws?.ping} ping!`);
-        require('../dashboard/index')(client)
+        // require('../dashboard/index')(client)
     }
 }

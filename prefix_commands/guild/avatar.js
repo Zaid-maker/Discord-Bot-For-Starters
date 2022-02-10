@@ -11,7 +11,9 @@ module.exports = {
         .setImage(Target.avatarURL({ dynamic: true, size: 4096 }))
         .setDescription(`[Png](${Target.avatarURL({ format: 'png', size: 1024 })}) | [Webp](${Target.avatarURL({ format: "webp", size: 1024 })}) | [Jpg](${Target.avatarURL({ format: 'jpg', size: 1024 })})`)
         .setTimestamp()
-        .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL({ dynamic: true }))
+        .setFooter({
+            text: "`Requested by ${message.author.username}`, message.author.avatarURL({ dynamic: true }))"
+        });
         message.channel.send({ embeds: [embed] })
     }
 }

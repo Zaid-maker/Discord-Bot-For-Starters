@@ -1,29 +1,40 @@
-const { Client, Collection, Intents } = require("discord.js");
-const { token, prefix, color, ownerId } = require("./settings.json");
-const client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-  ],
-  ws: {
-    properties: {
-      $browser: "Discord Android",
-    },
-  },
-  partials: ["CHANNEL", "MESSAGE", "REACTION"],
+// require topgg-autoposter module
+const { AutoPoster } = require("topgg-autoposter");
+//require discord.js
+const { ShardingManager } = require("discord.js");
+// require settings.json
+const { token, topgg_token } = require("./settings.json");
+
+const manager = new ShardingManager("./bot.js", {
+  token: token,
+  totalShards: "auto",
+  shardArgs: ["--shard"],
+  respawn: true,
 });
 
-client.prefix_commands = new Collection();
-client.slash_commands = new Collection();
-client.aliases = new Collection();
-client.settings = { prefix, color, ownerId };
+// Spawn the manager
+manager.spawn();
 
-for (let handler of ["slash_command", "prefix_command", "event"])
-  require(`./handlers/${handler}`)(client);
+// shard create event
+manager.on("shardCreate", async (shard) => {
+  console.log(
+    `[${new Date().toString().split(" ", 5).join(" ")}] Launched shard #${
+      shard.id
+    }`
+  );
+});
 
-// Export client
-module.exports = client;
+// topgg-autoposter
+const poster = AutoPoster(topgg_token, manager);
 
-// Login
-client.login(token);
+poster.on("posted", (stats) => {
+  console.log(
+    `[${new Date().toString().split(" ", 5).join(" ")}] Posted ${stats.message}`
+  );
+});
+
+poster.on("error", (err) => {
+  console.log(
+    `[${new Date().toString().split(" ", 5).join(" ")}] Error: ${err}`
+  );
+});
