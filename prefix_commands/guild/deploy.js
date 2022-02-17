@@ -10,6 +10,11 @@ module.exports = {
      * @returns 
      */
     run: async (client, message) => {
+        // check if bot has permissions to use application commands
+        if (!message.guild.me.permissions.has('USE_APPLICATION_COMMANDS')) {
+            return message.channel.send(`I don't have the permission to use application commands.`)
+        }
+
         let error = new MessageEmbed()
         .setDescription('<:error:896718126991966269> Sorry but this command can only be performed by the server owner.')
         .setColor('RED')

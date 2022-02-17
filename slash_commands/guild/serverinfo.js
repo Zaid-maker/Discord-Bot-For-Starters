@@ -80,7 +80,7 @@ module.exports = {
                 },
                 {
                     name: 'Server Features',
-                    value: `\`\`${interaction.guild.features.join(",")}\`\``,
+                    value: `\`\`${interaction.guild.features.map(x => x.replace(/_/g, "")).join('•').toLowerCase()}\`\``,
                     inline: true
                 },
             );

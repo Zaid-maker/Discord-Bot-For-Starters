@@ -10,10 +10,16 @@ module.exports = {
      * @returns 
      */
     run: async (client, message) => {
-        // Ghost Ping Detection.
-        simply.ghostPing(message);
-        
-        if (message.content === `<@!${client.user.id}>`) message.channel.send({content: `My prefix is \`${config.prefix}\``})
+        //simply chat bot
+        simply.chatbot(client, message, {
+            chid: "942385667483267073",
+            name: "PingPong Chat Bot"
+        });
+
+        //simply nqn(not quite nitro)
+        simply.nqn(message);
+
+        if (message.content === `<@!${client.user.id}>`) return message.channel.send({content: `My prefix is \`${config.prefix}\``})
         if(message.author.bot || !message.guild || !message.content.startsWith(client.settings.prefix)) return;
         const args = message.content.slice(client.settings.prefix.length).trim().split(/ +/g);
         const cmd = args.shift().toLowerCase();
