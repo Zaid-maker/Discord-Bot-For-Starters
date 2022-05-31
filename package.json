@@ -27,7 +27,7 @@
     "got": "^11.8.3",
     "memorystore": "^1.6.7",
     "minecraft-server-util": "^3.4.4",
-    "mongoose": "^5.13.13",
+    "mongoose": "^6.3.5",
     "node-fetch": "^2.6.7",
     "node-superfetch": "^0.2.3",
     "passport": "^0.5.2",
