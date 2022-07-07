@@ -30,7 +30,7 @@
     "mongoose": "^5.13.13",
     "node-fetch": "^2.6.7",
     "node-superfetch": "^0.2.3",
-    "passport": "^0.5.2",
+    "passport": "^0.5.3",
     "passport-discord": "^0.1.4",
     "quickmongo": "^3.0.0",
     "request-promise-native": "^1.0.9",
