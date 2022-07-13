@@ -20,18 +20,16 @@ module.exports = {
     let botping = new MessageEmbed()
       .setTitle(`${client.user.username} Ping`)
       .setColor("2f3136")
-      .addFields(
-        {
-          name: "<:connection2:896715171454677013> Bot Ping:",
-          value: `${
-            client.ws?.ping <= 200
-              ? circles.green
-              : client.ws?.ping <= 400
-              ? circles.yellow
-              : circles.red
-          } ${client.ws?.ping}ms`,
-        }
-      )
+      .addFields({
+        name: "<:connection2:896715171454677013> Bot Ping:",
+        value: `${
+          client.ws?.ping <= 200
+            ? circles.green
+            : client.ws?.ping <= 400
+            ? circles.yellow
+            : circles.red
+        } ${client.ws?.ping}ms`,
+      })
       .setTimestamp();
     return message.channel.send({ embeds: [botping] });
   },

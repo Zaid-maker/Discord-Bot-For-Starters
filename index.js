@@ -1,40 +1,62 @@
-// require topgg-autoposter module
-const { AutoPoster } = require("topgg-autoposter");
-//require discord.js
 const { ShardingManager } = require("discord.js");
-// require settings.json
+const { AutoPoster } = require("topgg-autoposter");
 const { token, topgg_token } = require("./settings.json");
 
 const manager = new ShardingManager("./bot.js", {
   token: token,
   totalShards: "auto",
-  shardArgs: ["--shard"],
-  respawn: true,
 });
 
-// Spawn the manager
-manager.spawn();
+manager.spawn({
+  amount: "auto",
+  delay: 5000,
+  timeout: 30000,
+});
 
-// shard create event
+manager.respawnAll({
+  shardDelay: 5000,
+  respawnDelay: 500,
+  timeout: 30000,
+});
+
 manager.on("shardCreate", async (shard) => {
-  console.log(
-    `[${new Date().toString().split(" ", 5).join(" ")}] Launched shard #${
-      shard.id
-    }`
-  );
+  shard.on("error", (error) => {
+    console.log(
+      `[${new Date().toString().split(" ", 5).join(" ")}] Shard #${
+        shard.id
+      } errored: ${error}`
+    );
+    shard.respawn();
+  });
+
+  shard.on("reconnection", () => {
+    console.log(
+      `[${new Date().toString().split(" ", 5).join(" ")}] Shard #${
+        shard.id
+      } reconnecting`
+    );
+  });
+
+  shard.on("spawn", () => {
+    console.log(
+      `[${new Date()
+        .toString()
+        .split(" ", 5)
+        .join(" ")}] Successfully Spawned Shard #${shard.id}`
+    );
+  });
+
+  shard.on("death", () => {
+    console.log(
+      `[${new Date().toString().split(" ", 5).join(" ")}] Shard #${
+        shard.id
+      } died unexpectedly`
+    );
+  });
 });
 
-// topgg-autoposter
-const poster = AutoPoster(topgg_token, manager);
+const poster = new AutoPoster(topgg_token, manager);
 
 poster.on("posted", (stats) => {
-  console.log(
-    `[${new Date().toString().split(" ", 5).join(" ")}] Posted ${stats.message}`
-  );
-});
-
-poster.on("error", (err) => {
-  console.log(
-    `[${new Date().toString().split(" ", 5).join(" ")}] Error: ${err}`
-  );
+  console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`);
 });
