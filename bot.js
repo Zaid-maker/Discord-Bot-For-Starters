@@ -1,10 +1,7 @@
 const { Client, Collection, Intents } = require("discord.js");
 const { token, prefix, color, ownerId } = require("./settings.json");
 const client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES
-  ],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
   ws: {
     properties: {
       $browser: "Discord Android",
