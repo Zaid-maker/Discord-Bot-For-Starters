@@ -14,9 +14,7 @@ module.exports = {
       return message.channel.send("Please enter some query to search!");
 
     href = await search(query);
-    let embeds = new MessageEmbed()
-    .setColor('RED')
-    .setTitle("Unknown Search")
+    let embeds = new MessageEmbed().setColor("RED").setTitle("Unknown Search");
     if (!href) return message.channel.send({ embeds: [embeds] });
 
     const embed = new MessageEmbed()
