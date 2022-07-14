@@ -30,7 +30,11 @@ module.exports = {
             : circles.red
         } ${client.ws?.ping}ms`,
       })
-      .setTimestamp();
+      .setTimestamp()
+      .setFooter({
+        text: `${message.author.tag}`,
+        iconURL: message.author.displayAvatarURL(),
+      });
     return message.channel.send({ embeds: [botping] });
   },
 };
